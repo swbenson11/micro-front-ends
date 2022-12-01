@@ -9,14 +9,16 @@ const prodConfig = {
   mode: "production",
   output: {
     // specify how we are going to name the files
-    filename: '[name].[contenthash].js'
+    filename: '[name].[contenthash].js',
+    // Used when we want to refer to a specific path, like where our files in our s3 buckets will be
+    publicPath: '/container/latest/'
   },
   plugins: [
     new ModuleFederationPlugin({
       name: "container",
       remotes: {
         // This is where our marketing front end is hosted
-        marketing: `marketing@${domain}`
+        marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`
       },
       shared: packageJson.dependencies
     }),
