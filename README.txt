@@ -28,10 +28,10 @@ That file is missing some stuff to work. It expects that you'd set up:
  - set update some environment variables inside of github secretes, eg, AWS_DEFAULT_REGION
 
 Additionally you'll need to solve some micro front end issues
-- caching (this is actually done automatically in our actions)
+- caching. this is actually done automatically in our actions, so we don't need to do this manually. These are just some notes from the course.
   -- CloudFront will not automatically detect changed files. To tell it to use the latest 
       version you need to create an invalidation inside of the s3 settings. This is just for the
-      html file (js have hashes in the name so it's not an issue).
+      static files, eg html, remote entries, ect (js have hashes in the name so it's not an issue).
   -- invalidation object path: /container/latest/index.html
   
 

@@ -9,7 +9,8 @@ const prodConfig = {
   mode: "production",
   output: {
     // specify how we are going to name the files
-    filename: '[name].[contenthash].js'
+    filename: '[name].[contenthash].js',
+    publicPath: '/marketing/latests/',
   },
   plugins: [
     new ModuleFederationPlugin({
