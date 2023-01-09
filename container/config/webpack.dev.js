@@ -9,6 +9,7 @@ const devConfig = {
     port: 8080,
     historyApiFallback: {
       index: "index.html",
+      historyApiFallback: true,
     },
   },
   plugins: [
@@ -19,7 +20,7 @@ const devConfig = {
         dashboard: "dashboard@http://localhost:8082/remoteEntry.js",
       },
       shared: packageJson.dependencies,
-    })
+    }),
   ],
 };
 

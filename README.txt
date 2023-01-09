@@ -40,3 +40,44 @@ Additionally you'll need to solve some micro front end issues
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     AWS_DEFAULT_REGION: us-east-2
+
+
+- CSS NOTES
+
+You need to worry about css files between the different MFA impacting each other. 
+Navigating around this app will cause the css to effect outside components if we 
+don't mediate this situation.
+
+Possible Solutions:
+-- Use a Css-in-js library to automatically scope all your css files
+-- use Angular or Vue's build in component style scoping
+-- manually "namespace" all your CSS
+
+Class name collision - when 2 libraries use the same class name. Happens when using 2 different css libraries, which will happen in mfe
+This can happen when the Programmaticly generate css class name get minified when they get moved into a shared css file.
+This might not happen in dev, but will happen when we build for prod
+So hero-content-header becomes hch1. and then another micro service ends up with the same abbreviation, and the micro services mess with each other. 
+
+Solution
+// Make all the production css get generated with the prefix of ma instead of the default jss
+// this stops class name collisions between mfe
+const generateClassName= createGenerateClassName({ productionPrefix: 'ma'})
+      <StylesProvider generateClassName={generateClassName}>
+
+- Routing notes
+The goal of our routing is to be able to display the different micro front ends based on the current route. That means 1 or more microfront ends need to look at the route and decided what they should render. 
+This info needs to be generically communicated between the container and the different MFEs. 
+
+2 things used by the routing libraries to decide what to show on screen
+  History - Object to get and set the current path the user is visiting
+  Router - shows different content based on the current path
+
+3 different version of history
+-- Browser History - look a the path portion of hte url (everything af ter the domain) to figure out what the current path is.
+    eg. `<BrowserRouter>` 
+-- Memory or Abstract History  - keep track of the current history inside of the memory
+    eg. `<Router history={history}>`  where history is a copy of our in memory history, instead of an automatic history
+
+Our MFE could be running any type of code. This means our different router objects could all be implementing different versions of router. This could lead to weird bugs and race conditions based on how these different routers try to read and change the url.
+Solution use Browser History in Container, and Memory History inside the children MFEs. Only the Container can update the browser URL. The child MFEs have there own url copy to internally manage, so they don't end up competing to change the URL. 
+will make the 
