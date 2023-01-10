@@ -80,4 +80,11 @@ This info needs to be generically communicated between the container and the dif
 
 Our MFE could be running any type of code. This means our different router objects could all be implementing different versions of router. This could lead to weird bugs and race conditions based on how these different routers try to read and change the url.
 Solution use Browser History in Container, and Memory History inside the children MFEs. Only the Container can update the browser URL. The child MFEs have there own url copy to internally manage, so they don't end up competing to change the URL. 
-will make the 
+
+User Clicks link governed by Container (Browser History) -> Communicate change to down to Marketing -> Marketing's memory History should update it's current path
+User clicks link governed by Marketing (Memory History) - Communicate change up to Container -> Container's Browser History should update it's current path
+
+Remember, this needs to be done in a generic way so that we are decoupled from individual Frameworks details, and we are still free do use different Frameworks in our MFEs
+We will be using OnNavigate to do this. 
+
+Careful to not get in an infinite flow. 
