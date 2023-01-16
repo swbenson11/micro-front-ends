@@ -1,4 +1,4 @@
-import { mount } from "marketing/MarketingApp";
+import { mount } from "auth/AuthApp";
 import React, { useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -12,12 +12,14 @@ export default () => {
       onNavigate: ({ pathname: nextPathname }) => {
         const { pathname } = history.location;
 
-        if (pathname !== nextPathname) history.push(nextPathname);
+        if (pathname !== nextPathname) {
+          history.push(nextPathname);
+        }
       },
     });
 
     history.listen(onParentNavigate);
-  }, []); // array will mean this only gets run when the page is rendered
+  }, []);
 
   return <div ref={ref} />;
 };
