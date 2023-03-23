@@ -10,6 +10,7 @@ import Header from "./components/Header";
 
 const MarketingLazy = lazy(() => import("./components/MarketingApp"));
 const AuthLazy = lazy(() => import("./components/AuthApp"));
+const DashboardLazy = lazy(() => import("./components/DashboardApp"));
 
 const generateClassName = createGenerateClassName({
   productionPrefix: "co",
@@ -34,6 +35,9 @@ export default () => {
                     setIsSignedIn(true);
                   }}
                 />
+              </Route>
+              <Route path="/dashboard">
+                <DashboardLazy />
               </Route>
               <Route path="/">
                 <MarketingLazy isSignedIn={isSignedIn} />
