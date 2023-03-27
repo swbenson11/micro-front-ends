@@ -108,3 +108,13 @@ Overview:
 Container will have a value, isSignedIn. It will pass a call back, onAuthChange, to the Auth App. Auth App is responsible for signing in. Additionally, Container will pass down isSignedIn into the other apps
 
 
+# Wrap up
+- Your requirements drive your architecture. Decided what is important for you app, and let that drive your architecture decisions
+
+- Always ask yourself "if I have to change this in the future, will I have to change another app?". EG. Routing library. Wire things together with a simple and generic interface, so we can change things up in the future.
+
+- Everyone will eventually forget React. Don't relay on React to shepard info between your apps, as that kills one of the benefits  of MFEs. 
+
+- Don't forget to scope your CSS. Don't let your different projects mess with other frameworks css.
+
+- MFE's might cause issues in prod that you don't see in dev, like CSS issues
